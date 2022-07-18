@@ -6,13 +6,20 @@ const mainNav = [
         display: 'Trang chủ',
         path: '/',
     },
+];
+
+const mode_settings = [
     {
-        display: 'Page',
-        path: '/page',
+        id: 'light',
+        name: 'Light',
+        background: 'light-background',
+        class: 'theme-mode-light',
     },
     {
-        display: 'PageLayout',
-        path: '/page-layout',
+        id: 'dark',
+        name: 'Dark',
+        background: 'dark-background',
+        class: 'theme-mode-dark',
     },
 ];
 
@@ -20,7 +27,11 @@ const Header = () => {
     const { pathname } = useLocation();
     const activeNav = mainNav.findIndex((e) => e.path === pathname);
 
-    return <div>Header</div>;
+    return (
+        <div>
+            <div>Change</div>
+        </div>
+    );
 };
 
 export default Header;

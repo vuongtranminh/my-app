@@ -1,37 +1,25 @@
-import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { publicRoutes } from './routes';
-import DefaultLayout from './layouts/default';
+import AppLayout from './layout/AppLayout';
+import AuthLayout from './layout/AuthLayout';
+import Board from './pages/Board';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 function App() {
     return (
         <Router>
-            <div className="App">
-                <Routes>
-                    {publicRoutes.map((route, index) => {
-                        const Page = route.component;
-                        let Layout = DefaultLayout;
-
-                        if (route.layout) {
-                            Layout = route.layout;
-                        } else if (route.layout === null) {
-                            Layout = Fragment;
-                        }
-
-                        return (
-                            <Route
-                                key={index}
-                                path={route.path}
-                                element={
-                                    <Layout>
-                                        <Page />
-                                    </Layout>
-                                }
-                            />
-                        );
-                    })}
-                </Routes>
-            </div>
+            <Routes>
+                <Route path="/" element={<AuthLayout />}>
+                    <Route path="login" element={<Login />} />
+                    <Route path="signup" element={<Signup />} />
+                </Route>
+                <Route path="/" element={<AppLayout />}>
+                    <Route index element={<Home />} />
+                    <Route path="boards" element={<Home />} />
+                    <Route path="boards/:boardId" element={<Board />} />
+                </Route>
+            </Routes>
         </Router>
     );
 }
