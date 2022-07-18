@@ -14,10 +14,14 @@ const Button = (props) => {
     } = props;
 
     return (
-        <button className={`button button--${variant} button--${size} ${className}`} {...otherProps} type={type}>
-            {startIcon && <span className="button__icon button__icon-start">{startIcon}</span>}
+        <button
+            className={`lt-button lt-button--${variant} lt-button--${size} ${className}`}
+            {...otherProps}
+            type={type}
+        >
+            {startIcon && <span className="lt-button__icon lt-button__icon-start">{startIcon}</span>}
             {children}
-            {endIcon && <span className="button__icon button__icon-end">{endIcon}</span>}
+            {endIcon && <span className="lt-button__icon lt-button__icon-end">{endIcon}</span>}
         </button>
     );
 };

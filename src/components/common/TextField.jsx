@@ -1,49 +1,68 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isString } from '~/utils';
 
-const TextField = (props) => {
-    const { label, rules, error, ...otherProps } = props;
+const TextField = forwardRef((props, ref) => {
+    const { label, rules, onChange, value, ...otherProps } = props;
 
-    const [errorMessage, setErrorMessage] = useState(error);
+    const [state, setState] = useState('');
+    const [error, setError] = useState('');
 
-    useEffect(() => {
-        console.log('error change');
-        setErrorMessage(error);
-    }, [error]);
-
-    const handleBlur = (e) => {
-        validateInput(e.target.value);
+    const handleChange = (e) => {
+        setState(e.target.value);
+        setError('');
+        onChange(e);
     };
 
-    const handleFocus = () => {
-        setErrorMessage('');
-    };
-
-    const validateInput = (value) => {
-        let error = '';
-        for (const rule of rules) {
-            error = rule(value);
-            if (isString(error)) break;
+    const validate = () => {
+        if (rules) {
+            let error = '';
+            for (const rule of rules) {
+                error = rule(state);
+                if (isString(error)) {
+                    setError(error);
+                    return false;
+                }
+            }
         }
-        setErrorMessage(error);
+
+        return true;
+    };
+
+    useImperativeHandle(ref, () => {
+        return {
+            validate: () => validate(),
+        };
+    });
+
+    const handleBlur = () => {
+        validate();
     };
 
     return (
-        <div className="text-field">
-            <div className="text-field__input">
-                <input placeholder=" " {...otherProps} onBlur={handleBlur} onFocus={handleFocus} />
+        <div className="lt-text-field">
+            <div className="lt-text-field__input">
+                <input
+                    placeholder=" "
+                    {...otherProps}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={value ? value : state}
+                />
                 <label>{label}</label>
             </div>
-            {errorMessage && <p>{errorMessage}</p>}
+            {error && <p>{error}</p>}
         </div>
     );
-};
+});
 
 TextField.propTypes = {
     label: PropTypes.string,
     rules: PropTypes.any,
-    error: PropTypes.any,
+    onChange: PropTypes.func,
+    value: PropTypes.string,
 };
+
+TextField.displayName = 'TextField';
 
 export default TextField;

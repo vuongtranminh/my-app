@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TableRow = (props) => {
-    const { children, className } = props;
-    return <tr className={className}>{children}</tr>;
+    const { children } = props;
+    return <tr className="lt-table__row">{children}</tr>;
 };
 
 TableRow.propTypes = {
