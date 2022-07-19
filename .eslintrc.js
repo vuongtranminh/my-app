@@ -13,8 +13,8 @@ module.exports = {
     },
     plugins: ['react'],
     rules: {
-        'no-console': 'warn',
-        'no-eval': 'error',
+        'no-console': 'off',
+        'no-eval': 'off',
         'react/react-in-jsx-scope': 'off',
     },
 };

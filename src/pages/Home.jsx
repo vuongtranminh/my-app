@@ -11,6 +11,8 @@ import TextField from '~/components/common/TextField';
 // import { useFetchData } from '~/hooks';
 import data from '~/assets/fakedata/db.json';
 import Autocomplete from '~/components/common/Autocomplete';
+import InputLabel from '~/components/common/InputLabel';
+import Dialog, { DialogActions, DialogContent, DialogTitle } from '~/components/common/Dialog';
 
 const Home = () => {
     // const { data: test, isLoading, error } = useFetchData(authApi.posts);
@@ -160,6 +162,10 @@ const Home = () => {
             </Form>
 
             <div style={{ marginTop: '30px', width: '50%' }}>
+                <InputLabel />
+            </div>
+
+            <div style={{ marginTop: '30px', width: '50%' }}>
                 <Table stickyHeader style={{ maxHeight: '100px' }}>
                     <TableHead>
                         <TableRow>
@@ -194,6 +200,25 @@ const Home = () => {
 
             <div style={{ marginTop: '30px', width: '50%' }}>
                 <Autocomplete data={data} />
+            </div>
+
+            <div>
+                <Dialog>
+                    <DialogTitle>Dialog</DialogTitle>
+                    <DialogContent>
+                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                        egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent
+                        commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+                        laoreet rutrum faucibus dolor auctor. Aenean lacinia bibendum nulla sed consectetur. Praesent
+                        commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper
+                        nulla non metus auctor fringilla.
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant="contained" size="small">
+                            Small
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         </div>
     );
