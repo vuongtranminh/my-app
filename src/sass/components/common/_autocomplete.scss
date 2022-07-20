@@ -50,17 +50,23 @@
     }
 
     &__results {
+        margin-top: 2px;
         border-radius: 4px;
         max-width: max-content;
         max-height: 300px;
-        overflow: hidden;
         overflow-y: auto;
         font-size: 16px;
         background-color: #fcfcfb;
+        box-shadow: 0 2px 5px rgb(0 0 0 / 28%);
+        display: none;
 
         &--no-data {
             padding: 10px 12px;
             max-width: 300px;
+        }
+
+        &.visbile {
+            display: block;
         }
 
         &__item {
@@ -72,6 +78,15 @@
             &:hover {
                 background-color: #e9e9e9;
             }
+
+            // same hover when choose item by keydown
+            &.highlight {
+                background-color: #e9e9e9;
+            }
+        }
+
+        ul {
+            width: 100%;
         }
     }
 }

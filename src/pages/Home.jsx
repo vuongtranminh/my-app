@@ -1,11 +1,7 @@
 import React, { createRef, useRef, useState } from 'react';
 import Button from '~/components/common/Button';
 import Form from '~/components/common/Form';
-import Table from '~/components/common/Table';
-import TableBody from '~/components/common/TableBody';
-import TableCell from '~/components/common/TableCell';
-import TableHead from '~/components/common/TableHead';
-import TableRow from '~/components/common/TableRow';
+import Table, { TableBody, TableCell, TableHead, TableRow } from '~/components/common/Table';
 // import authApi from '~/api/authApi';
 import TextField from '~/components/common/TextField';
 // import { useFetchData } from '~/hooks';
@@ -13,16 +9,54 @@ import data from '~/assets/fakedata/db.json';
 import Autocomplete from '~/components/common/Autocomplete';
 import InputLabel from '~/components/common/InputLabel';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from '~/components/common/Dialog';
+import IconButton from '~/components/common/IconButton';
+import Tooltip from '~/components/common/Tooltip';
 
 const Home = () => {
     // const { data: test, isLoading, error } = useFetchData(authApi.posts);
 
     const inputRefs = useRef([createRef(), createRef()]);
 
+    const [open, setOpen] = useState(false);
+
+    const handleOpenDialog = (value) => {
+        setOpen(value);
+    };
+
     const [account, setAccount] = useState({});
 
     const createData = (name, calories, fat, carbs, protein) => {
         return { name, calories, fat, carbs, protein };
+    };
+
+    const [inputSearch, setInputSearch] = useState('');
+    const [filterSearch, setFilterSearch] = useState([]);
+    const [isLoadingAutocomplete, setIsLoadingAutocomplete] = useState(false);
+
+    const handleFilter = (value) => {
+        console.log('search');
+        setIsLoadingAutocomplete(true);
+        setTimeout(() => {
+            const newFilter = data.filter((item) => {
+                return item.title.toLowerCase().includes(value.toLowerCase());
+            });
+            setFilterSearch(newFilter);
+            setIsLoadingAutocomplete(false);
+        }, 2000);
+    };
+
+    const handleChangeInputSearch = (value) => {
+        setInputSearch(value);
+    };
+
+    const handleData = (value) => {
+        setFilterSearch(value);
+    };
+
+    // click vào 1 dòng input
+    const handleClickAutoComplete = (value) => {
+        console.log('click');
+        console.log(value);
     };
 
     const rows = [
@@ -94,12 +128,13 @@ const Home = () => {
             return;
         }
 
-        console.log('login');
-        console.log(account);
+        // console.log('login');
+        // console.log(account);
         //Carry on as normal
     };
 
-    console.log(account);
+    // console.log(account);
+    // console.log(filterSearch);
 
     return (
         <div>
@@ -170,16 +205,16 @@ const Home = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell component="th">Dessert (100g serving)</TableCell>
-                            <TableCell component="th" align="right">
+                            <TableCell component="th" align="center">
                                 Calories
                             </TableCell>
-                            <TableCell component="th" align="right">
+                            <TableCell component="th" align="center">
                                 Fat&nbsp;(g)
                             </TableCell>
-                            <TableCell component="th" align="right">
+                            <TableCell component="th" align="center">
                                 Carbs&nbsp;(g)
                             </TableCell>
-                            <TableCell component="th" align="right">
+                            <TableCell component="th" align="center">
                                 Protein&nbsp;(g)
                             </TableCell>
                         </TableRow>
@@ -188,10 +223,10 @@ const Home = () => {
                         {rows.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell component="th">{row.name}</TableCell>
-                                <TableCell align="right">{row.calories}</TableCell>
-                                <TableCell align="right">{row.fat}</TableCell>
-                                <TableCell align="right">{row.carbs}</TableCell>
-                                <TableCell align="right">{row.protein}</TableCell>
+                                <TableCell align="end">{row.calories}</TableCell>
+                                <TableCell align="end">{row.fat}</TableCell>
+                                <TableCell align="end">{row.carbs}</TableCell>
+                                <TableCell align="end">{row.protein}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -199,27 +234,53 @@ const Home = () => {
             </div>
 
             <div style={{ marginTop: '30px', width: '50%' }}>
-                <Autocomplete data={data} />
+                <Autocomplete
+                    items={filterSearch}
+                    isLoading={isLoadingAutocomplete}
+                    onChange={handleChangeInputSearch}
+                    search={handleFilter}
+                    onData={handleData}
+                    onClickAutoComplete={handleClickAutoComplete}
+                    value={inputSearch}
+                    itemText="title"
+                    itemValue="title"
+                    returnObject
+                />
             </div>
 
-            <div>
-                <Dialog>
-                    <DialogTitle>Dialog</DialogTitle>
-                    <DialogContent>
-                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-                        egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent
-                        commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-                        laoreet rutrum faucibus dolor auctor. Aenean lacinia bibendum nulla sed consectetur. Praesent
-                        commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper
-                        nulla non metus auctor fringilla.
-                    </DialogContent>
-                    <DialogActions>
-                        <Button variant="contained" size="small">
-                            Small
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+            <div style={{ marginTop: '30px', width: '50%' }}>
+                <Button variant="contained" size="medium" onClick={() => handleOpenDialog(!open)}>
+                    Dialog
+                </Button>
             </div>
+            <div style={{ marginTop: '30px', width: '50%' }}>
+                <IconButton badge="9">
+                    <i className="bx bx-bell"></i>
+                </IconButton>
+            </div>
+            <div style={{ marginTop: '30px', width: '50%' }}>
+                <Tooltip tooltip="Thông báo" flow="down">
+                    <IconButton badge="9">
+                        <i className="bx bx-bell"></i>
+                    </IconButton>
+                </Tooltip>
+            </div>
+            <Dialog open={open} defaultClose backdropClose onOpen={handleOpenDialog}>
+                <DialogTitle>Dialog</DialogTitle>
+                <DialogContent>
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+                    eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus
+                    dolor auctor. Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+                    scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor
+                    fringilla.
+                </DialogContent>
+                <DialogActions>
+                    <Button variant="contained" size="small">
+                        Small
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 };
