@@ -11,6 +11,8 @@ import InputLabel from '~/components/common/InputLabel';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from '~/components/common/Dialog';
 import IconButton from '~/components/common/IconButton';
 import Tooltip from '~/components/common/Tooltip';
+import OTPInput from '~/components/common/OTPInput';
+import DatePicker from '~/components/common/DatePicker';
 
 const Home = () => {
     // const { data: test, isLoading, error } = useFetchData(authApi.posts);
@@ -136,6 +138,10 @@ const Home = () => {
     // console.log(account);
     // console.log(filterSearch);
 
+    const handleSubmitOTP = (value) => {
+        console.log(value);
+    };
+
     return (
         <div>
             <Form name="form-account" onSubmit={handleSubmit}>
@@ -259,11 +265,17 @@ const Home = () => {
                 </IconButton>
             </div>
             <div style={{ marginTop: '30px', width: '50%' }}>
+                <DatePicker />
+            </div>
+            <div style={{ marginTop: '30px', width: '50%' }}>
                 <Tooltip tooltip="Thông báo" flow="down">
                     <IconButton badge="9">
                         <i className="bx bx-bell"></i>
                     </IconButton>
                 </Tooltip>
+            </div>
+            <div style={{ marginTop: '30px', width: '50%' }}>
+                <OTPInput autoSubmit onSubmit={handleSubmitOTP} />
             </div>
             <Dialog open={open} defaultClose backdropClose onOpen={handleOpenDialog}>
                 <DialogTitle>Dialog</DialogTitle>

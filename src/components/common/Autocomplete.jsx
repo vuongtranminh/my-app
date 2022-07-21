@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
-import { useDebounce } from '~/hooks';
+import { useCallbackState, useDebounce } from '~/hooks';
 
 const BEFORE_SEARCH = 0;
 const SEARCHING = 1;
@@ -29,6 +29,7 @@ const Autocomplete = (props) => {
 
     const autocompleteRef = useRef(null);
     const autocompleteResultsRef = useRef(null);
+    const didMount = useRef(false);
 
     const [inputSearch, setInputSearch] = useState('');
     const [isDone, setIsDone] = useState(false);
@@ -105,13 +106,19 @@ const Autocomplete = (props) => {
         // if (isDone) {
         //     return;
         // }
-        if (statusSearch !== SEARCHED) {
-            if (!debouncedValue.trim()) {
-                onData([]);
-            } else {
-                search(debouncedValue);
+        // Return early, if this is the first render:
+        if (!didMount.current) {
+            didMount.current = true;
+        } else {
+            // Paste code to be executed on subsequent renders:
+            if (statusSearch !== SEARCHED) {
+                if (!debouncedValue.trim()) {
+                    onData([]);
+                } else {
+                    search(debouncedValue);
+                }
+                setStatusSeach(SEARCHING);
             }
-            setStatusSeach(SEARCHING);
         }
 
         // setIsDone(false);
@@ -232,10 +239,11 @@ const Autocomplete = (props) => {
         // } else {
         //     return null;
         // }
+
         if (statusSearch === BEFORE_SEARCH) {
             return (
                 <ul ref={autocompleteResultsRef}>
-                    <li className="lt-autocomplete__results lt-autocomplete__results--no-data">
+                    <li className="lt-autocomplete__results--no-data">
                         <p>Tìm kiếm mã CK</p>
                     </li>
                 </ul>
@@ -264,7 +272,7 @@ const Autocomplete = (props) => {
                 } else {
                     return (
                         <ul ref={autocompleteResultsRef}>
-                            <li className="lt-autocomplete__results lt-autocomplete__results--no-data">
+                            <li className="lt-autocomplete__results--no-data">
                                 <p>{noDataText}</p>
                             </li>
                         </ul>
