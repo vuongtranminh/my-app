@@ -1,9 +1,13 @@
 .theme-mode-light {
+    $main-color: $main-color-light;
     $main-bg: $main-bg-light;
     $txt-color: $txt-color-light;
+    $main-bg-hightlight: $main-bg-hightlight-light;
 }
 
 .theme-mode-dark {
+    $main-color: $main-color-dark;
     $main-bg: $main-bg-dark;
     $txt-color: $txt-color-dark;
+    $main-bg-hightlight: $main-bg-hightlight-dark;
 }

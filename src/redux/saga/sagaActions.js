@@ -1,3 +1,3 @@
 export const sagaActions = {
-    FETCH_DATA_SAGA: 'FETCH_DATA_SAGA',
+    SET_THEME_SAGA: 'SET_THEME_SAGA',
 };

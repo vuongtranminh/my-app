@@ -45,6 +45,10 @@ img {
     }
 }
 
+.grid {
+    display: grid;
+}
+
 @each $val in $numbers {
     .grid-col-#{$val} {
         grid-template-columns: repeat($val, 1fr);
@@ -71,8 +75,4 @@ img {
 }
 
 .main {
-}
-
-.grid {
-    display: grid;
 }

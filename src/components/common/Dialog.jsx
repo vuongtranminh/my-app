@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import images from '~/assets/images/svgs';
 
 const Dialog = (props) => {
     const { open, onOpen, children, defaultClose = false, backdropClose = false } = props;
+
+    const overlayRef = useRef(null);
 
     useEffect(() => {
         if (backdropClose) {
@@ -27,11 +28,11 @@ const Dialog = (props) => {
     };
 
     return (
-        <div className={`lt-overlay ${open && 'active'}`}>
+        <div className={`lt-overlay ${open && 'active'}`} ref={overlayRef}>
             <div className="lt-dialog">
                 {defaultClose && (
                     <span className="lt-dialog__close" onClick={handleOpen}>
-                        <img src={images.x} />
+                        <i class="bx bx-x"></i>
                     </span>
                 )}
                 {children}

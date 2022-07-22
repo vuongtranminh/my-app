@@ -13,6 +13,8 @@ import IconButton from '~/components/common/IconButton';
 import Tooltip from '~/components/common/Tooltip';
 import OTPInput from '~/components/common/OTPInput';
 import DatePicker from '~/components/common/DatePicker';
+import { dateFormat } from '~/helpers';
+import Tabs, { Tab, TabsContent, TabsNav, TabsPane } from '~/components/common/Tabs';
 
 const Home = () => {
     // const { data: test, isLoading, error } = useFetchData(authApi.posts);
@@ -59,6 +61,17 @@ const Home = () => {
     const handleClickAutoComplete = (value) => {
         console.log('click');
         console.log(value);
+    };
+
+    const [date, setDate] = useState({
+        year: 2000,
+        month: 4,
+        date: 10,
+    });
+
+    const handleChangeDate = (date) => {
+        console.log(date);
+        setDate(date);
     };
 
     const rows = [
@@ -210,19 +223,11 @@ const Home = () => {
                 <Table stickyHeader style={{ maxHeight: '100px' }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell component="th">Dessert (100g serving)</TableCell>
-                            <TableCell component="th" align="center">
-                                Calories
-                            </TableCell>
-                            <TableCell component="th" align="center">
-                                Fat&nbsp;(g)
-                            </TableCell>
-                            <TableCell component="th" align="center">
-                                Carbs&nbsp;(g)
-                            </TableCell>
-                            <TableCell component="th" align="center">
-                                Protein&nbsp;(g)
-                            </TableCell>
+                            <TableCell>Dessert (100g serving)</TableCell>
+                            <TableCell align="center">Calories</TableCell>
+                            <TableCell align="center">Fat&nbsp;(g)</TableCell>
+                            <TableCell align="center">Carbs&nbsp;(g)</TableCell>
+                            <TableCell align="center">Protein&nbsp;(g)</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -265,7 +270,52 @@ const Home = () => {
                 </IconButton>
             </div>
             <div style={{ marginTop: '30px', width: '50%' }}>
-                <DatePicker />
+                <Tabs active="0">
+                    <TabsNav>
+                        <Tab>Tab #1</Tab>
+                        <Tab>Tab #2</Tab>
+                        <Tab>Tab #3</Tab>
+                    </TabsNav>
+                    <TabsContent>
+                        <TabsPane>
+                            <h3>Tab content #1</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae eaque illo corporis magni
+                                consequuntur, consequatur aliquid totam est sapiente soluta. Unde aliquid commodi
+                                temporibus praesentium possimus. Sapiente perferendis quidem voluptatum?
+                            </p>
+                            <p>
+                                Veritatis et fugit optio beatae ut pariatur, iusto eum libero quis magnam dignissimos
+                                minus dolores sapiente, quam harum reiciendis totam illum voluptatem magni debitis
+                                neque, fugiat mollitia exercitationem. Laborum, tempore.
+                            </p>
+                        </TabsPane>
+                        <TabsPane>
+                            <h3>Tab content #2</h3>
+                            <p>
+                                Veritatis et fugit optio beatae ut pariatur, iusto eum libero quis magnam dignissimos
+                                minus dolores sapiente, quam harum reiciendis totam illum voluptatem magni debitis
+                                neque, fugiat mollitia exercitationem. Laborum, tempore.
+                            </p>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae eaque illo corporis magni
+                                consequuntur, consequatur aliquid totam est sapiente soluta. Unde aliquid commodi
+                                temporibus praesentium possimus. Sapiente perferendis quidem voluptatum?
+                            </p>
+                        </TabsPane>
+                        <TabsPane>
+                            <h3>Tab content #3</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Id in, dolorum eveniet et vel
+                                repudiandae cum, dolores officia quo tenetur voluptas nihil similique qui voluptate
+                                laudantium animi eius suscipit ad.
+                            </p>
+                        </TabsPane>
+                    </TabsContent>
+                </Tabs>
+            </div>
+            <div style={{ marginTop: '30px', width: '50%' }}>
+                <DatePicker onChange={handleChangeDate} />
             </div>
             <div style={{ marginTop: '30px', width: '50%' }}>
                 <Tooltip tooltip="Thông báo" flow="down">

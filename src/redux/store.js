@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
+import themeSlice from './features/themeSlice';
 
-import oneSlice from './one-slide';
 import rootSaga from './saga';
 
 import twoSlice from './two-slide';
@@ -15,7 +15,7 @@ const middleware = (getDefaultMiddleware) => getDefaultMiddleware({ thunk: false
 // mount it on the Store
 const store = configureStore({
     reducer: {
-        oneItems: oneSlice,
+        themeMode: themeSlice,
         twoItems: twoSlice,
     },
     middleware,

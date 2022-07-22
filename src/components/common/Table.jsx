@@ -1,5 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { createContext } from 'react';
+
+const SectionContext = createContext({ parent: 'TableHead' });
 
 const Table = (props) => {
     const { children, stickyHeader = false, className, ...otherProps } = props;
@@ -10,38 +11,20 @@ const Table = (props) => {
     );
 };
 
-Table.propTypes = {
-    children: PropTypes.any,
-    stickyHeader: PropTypes.bool,
-    className: PropTypes.string,
-    otherProps: PropTypes.any,
+export const TableHead = ({ children }) => {
+    return (
+        <thead className="lt-table__head">
+            <SectionContext.Provider value={{ parent: 'TableHead' }}>{children}</SectionContext.Provider>
+        </thead>
+    );
 };
 
-export const TableHead = (props) => {
-    const { children } = props;
-    return <thead className="lt-table__head">{children}</thead>;
-};
-
-TableHead.propTypes = {
-    children: PropTypes.any,
-};
-
-export const TableBody = (props) => {
-    const { children } = props;
-    return <tbody className="lt-table__body">{children}</tbody>;
-};
-
-TableBody.propTypes = {
-    children: PropTypes.any,
-};
-
-export const TableFooter = (props) => {
-    const { children } = props;
-    return <tfoot className="lt-table__foot">{children}</tfoot>;
-};
-
-TableFooter.propTypes = {
-    children: PropTypes.any,
+export const TableBody = ({ children }) => {
+    return (
+        <tbody className="lt-table__body">
+            <SectionContext.Provider value={{ parent: 'TableBody' }}>{children}</SectionContext.Provider>
+        </tbody>
+    );
 };
 
 export const TableRow = (props) => {
@@ -49,29 +32,20 @@ export const TableRow = (props) => {
     return <tr className="lt-table__row">{children}</tr>;
 };
 
-TableRow.propTypes = {
-    children: PropTypes.any,
-};
-
 export const TableCell = (props) => {
-    const { children, align = 'start', component = 'td', className, ...otherProps } = props;
-    return component === 'td' ? (
-        <td className={`lt-table__cell lt-table__cell--${align} ${className}`} {...otherProps}>
+    const { children, align = 'start', component, className, ...otherProps } = props;
+    const { parent } = React.useContext(SectionContext);
+    const Component = component ? component : parent === 'TableHead' ? 'th' : 'td';
+    return (
+        <Component className={`lt-table__cell lt-table__cell--${align} ${className}`} {...otherProps}>
             {children}
-        </td>
-    ) : (
-        <th className={`lt-table__cell lt-table__cell--${align} ${className}`} {...otherProps}>
-            {children}
-        </th>
+        </Component>
     );
 };
 
-TableCell.propTypes = {
-    children: PropTypes.any,
-    align: PropTypes.string,
-    component: PropTypes.string,
-    className: PropTypes.string,
-    otherProps: PropTypes.any,
+export const TableFooter = (props) => {
+    const { children } = props;
+    return <tfoot className="lt-table__foot">{children}</tfoot>;
 };
 
 export default Table;

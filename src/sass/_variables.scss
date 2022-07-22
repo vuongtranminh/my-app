@@ -1,21 +1,27 @@
-$main-color: #4267b2;
-$main-bg: #ffffff;
-$txt-color: #455560;
+$main-color: #353a55;
+$main-bg: #262833;
+$txt-color: #ffffff;
+$main-bg-hightlight: #4b4f65;
 
-$main-bg-light: #ffffff;
-$txt-color-light: #455560;
+$border-radius: 10px;
 
-$main-bg-dark: #2d2d2d;
-$txt-color-dark: #bbbbbb;
+$main-color-light: #353a55;
+$main-bg-light: #262833;
+$txt-color-light: #ffffff;
+$main-bg-hightlight-light: #4b4f65;
+
+$main-color-dark: #353a55;
+$main-bg-dark: #262833;
+$txt-color-dark: #ffffff;
+$main-bg-hightlight-dark: #4b4f65;
 
 $colors: (
-    'blue': #4267b2,
-    'orange': #fbb96b,
-    'pink': #fe7e73,
-    'white': #fff,
-    'black': #000,
-    'main': $main-color,
-    'red': #ff0000,
+    'warning': #fcb522,
+    'light': #ffffff,
+    'danger': #ff5858,
+    'success': #20c997,
+    'info': #3ee8ff,
+    'purple': #a86fff,
 );
 
 $mobile-width: 600px;

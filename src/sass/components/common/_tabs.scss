@@ -1,0 +1,67 @@
+.lt-tabs {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+
+    &__nav {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        background-color: #fafafa;
+    }
+
+    &__btn {
+        position: relative;
+        padding: 1rem 1.25rem;
+        cursor: pointer;
+        transition: opacity 0.3s;
+
+        &:not(.active) {
+            opacity: 0.6;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        &.active {
+            color: #6158de;
+            background-color: #fff;
+            border-right: 1px solid rgba(0, 0, 0, 0.125);
+            border-left: 1px solid rgba(0, 0, 0, 0.125);
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                height: 1px;
+                width: 100%;
+                background-color: #fff;
+            }
+        }
+
+        &:first-child {
+            &.active {
+                border-left: none;
+            }
+        }
+    }
+
+    &__pane {
+        display: none;
+        padding: 2rem 1.25rem;
+
+        &.visible {
+            display: block;
+        }
+    }
+}
+
+h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    & + & {
+        margin-top: 1rem;
+    }
+}
