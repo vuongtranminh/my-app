@@ -7,7 +7,7 @@
 }
 
 html {
-    font-size: 13px;
+    font-size: 12px;
 
     @include mobile {
         font-size: 11px;
@@ -16,6 +16,11 @@ html {
 
 body {
     font-family: 'Roboto', sans-serif;
+
+    &::-webkit-scrollbar {
+        width: 0 !important;
+        display: none;
+    }
 }
 
 ul {
@@ -45,34 +50,12 @@ img {
     }
 }
 
-.grid {
-    display: grid;
+.text--head {
+    font-weight: 700;
+    font-size: 16px;
 }
 
-@each $val in $numbers {
-    .grid-col-#{$val} {
-        grid-template-columns: repeat($val, 1fr);
-    }
-}
-
-@each $val in $numbers {
-    .grid-col-md-#{$val} {
-        @include tablet {
-            grid-template-columns: repeat($val, 1fr);
-        }
-    }
-}
-
-@each $val in $numbers {
-    .grid-col-sm-#{$val} {
-        @include mobile {
-            grid-template-columns: repeat($val, 1fr);
-        }
-    }
-}
-
-.container {
-}
-
-.main {
+.text--bold {
+    font-weight: 700;
+    font-size: 14px;
 }

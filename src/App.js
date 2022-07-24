@@ -3,7 +3,7 @@ import AppLayout from './layout/AppLayout';
 import AuthLayout from './layout/AuthLayout';
 import Board from './pages/Board';
 import Home from './pages/Home';
-import Login from './pages/Login';
+import Login from './pages/auth/Login';
 import Signup from './pages/Signup';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/" element={<AuthLayout />}>
-                    <Route path="login" element={<Login />} />
+                    <Route path="auth/login" element={<Login />} />
                     <Route path="signup" element={<Signup />} />
                 </Route>
                 <Route path="/" element={<AppLayout />}>

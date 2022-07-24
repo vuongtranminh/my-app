@@ -1,13 +1,18 @@
 .layout {
     color: $txt-color;
-    padding: 10px 20px 0 20px;
+    padding: 10px;
+    background-color: $main-bg;
+    height: 100vh;
 }
 
 .layout__content {
     padding-left: 10px;
-    min-height: 100vh;
 }
 
 .layout__content-main {
-    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    height: calc(100vh - 110px);
+    background-color: antiquewhite;
+    overflow-y: auto;
 }

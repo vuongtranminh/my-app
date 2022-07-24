@@ -1,6 +1,7 @@
 @import './variables';
 @import './mixins';
 @import './base';
+@import './grid';
 @import './theme';
 
 @import './components/common/common';
@@ -8,3 +9,5 @@
 @import './layouts/layout';
 
 @import './components/components';
+
+@import './pages/index';

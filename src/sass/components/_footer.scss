@@ -1,0 +1,12 @@
+.footer {
+    background-color: $main-bg-section;
+    border-radius: 6px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6px;
+    position: sticky;
+    bottom: 10px;
+    margin: 0;
+}

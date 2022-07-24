@@ -13,7 +13,6 @@ const Tabs = (props) => {
     }, [props.active]);
 
     const handleActive = (active) => {
-        console.log(active);
         setActive(active);
     };
 
@@ -53,9 +52,9 @@ export const TabsNav = (props) => {
 
 export const Tab = (props) => {
     return (
-        <button className={`lt-tabs__btn ${props.active && 'active'}`} onClick={props.onClick}>
+        <div className={`lt-tabs__btn ${props.active && 'active'}`} onClick={props.onClick}>
             {props.children}
-        </button>
+        </div>
     );
 };
 

@@ -15,6 +15,7 @@ import OTPInput from '~/components/common/OTPInput';
 import DatePicker from '~/components/common/DatePicker';
 import { dateFormat } from '~/helpers';
 import Tabs, { Tab, TabsContent, TabsNav, TabsPane } from '~/components/common/Tabs';
+import Select from '~/components/common/Select';
 
 const Home = () => {
     // const { data: test, isLoading, error } = useFetchData(authApi.posts);
@@ -36,6 +37,8 @@ const Home = () => {
     const [inputSearch, setInputSearch] = useState('');
     const [filterSearch, setFilterSearch] = useState([]);
     const [isLoadingAutocomplete, setIsLoadingAutocomplete] = useState(false);
+
+    const [selected, setSelected] = useState(null);
 
     const handleFilter = (value) => {
         console.log('search');
@@ -326,6 +329,9 @@ const Home = () => {
             </div>
             <div style={{ marginTop: '30px', width: '50%' }}>
                 <OTPInput autoSubmit onSubmit={handleSubmitOTP} />
+            </div>
+            <div style={{ marginTop: '30px', width: '50%' }}>
+                <Select />
             </div>
             <Dialog open={open} defaultClose backdropClose onOpen={handleOpenDialog}>
                 <DialogTitle>Dialog</DialogTitle>

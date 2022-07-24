@@ -1,7 +1,13 @@
-@mixin flex($align-item, $justify-content) {
+@mixin flex($justify-content, $align-item) {
     display: flex;
-    align-items: $align-item;
     justify-content: $justify-content;
+    align-items: $align-item;
+}
+
+@mixin inline-flex($justify-content, $align-item) {
+    display: inline-flex;
+    justify-content: $justify-content;
+    align-items: $align-item;
 }
 
 @mixin mobile {

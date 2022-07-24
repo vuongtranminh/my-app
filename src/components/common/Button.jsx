@@ -7,7 +7,7 @@ const Button = (props) => {
         startIcon,
         endIcon,
         variant = 'text',
-        size = 'medium',
+        size = 'full',
         className,
         type = 'button',
         ...otherProps

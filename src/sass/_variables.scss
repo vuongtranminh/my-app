@@ -1,5 +1,6 @@
 $main-color: #353a55;
 $main-bg: #262833;
+$main-bg-section: #292c38;
 $txt-color: #ffffff;
 $main-bg-hightlight: #4b4f65;
 
@@ -7,13 +8,22 @@ $border-radius: 10px;
 
 $main-color-light: #353a55;
 $main-bg-light: #262833;
+$main-bg-section-light: #292c38;
 $txt-color-light: #ffffff;
 $main-bg-hightlight-light: #4b4f65;
 
 $main-color-dark: #353a55;
 $main-bg-dark: #262833;
+$main-bg-section-dark: #292c38;
 $txt-color-dark: #ffffff;
 $main-bg-hightlight-dark: #4b4f65;
+
+$warning: #fcb522;
+$light: #ffffff;
+$danger: #ff5858;
+$success: #20c997;
+$info: #3ee8ff;
+$purple: #a86fff;
 
 $colors: (
     'warning': #fcb522,
@@ -27,4 +37,4 @@ $colors: (
 $mobile-width: 600px;
 $tablet-width: 1024px;
 
-$numbers: (0, 1, 2, 3, 4, 5, 6, 7, 8);
+$numbers: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);

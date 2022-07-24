@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import images from '~/assets/images';
+import sideBar from '~/common/sidebar';
 
 const Sidebar = () => {
     const [closeNav, setCloseNav] = useState(true);
@@ -9,81 +11,89 @@ const Sidebar = () => {
     };
 
     return (
-        <nav className={`sidebar ${closeNav && 'close'}`}>
+        <nav class={`sidebar ${closeNav && 'close'}`}>
             <header>
-                <div className="sidebar__logo">
-                    <span className="sidebar__logo__image">
-                        <img src={images.logo} alt="" />
+                <div class="image-text">
+                    <span class="image">
+                        <img src={images.logoMini} alt="" />
                     </span>
 
-                    <div className="sidebar__text sidebar__logo__text">
-                        <span className="name">Codinglab</span>
-                        <span className="profession">Web developer</span>
+                    <div class="text logo-text">
+                        <img src={images.logoCut} alt="" />
                     </div>
                 </div>
 
-                <span className="sidebar__toggle" onClick={handleToggle}>
-                    <i className={`bx bx-chevron-${closeNav ? 'left' : 'right'}`}></i>
-                </span>
+                <i class={`bx bx-chevron-${closeNav ? 'right' : 'left'} toggle`} onClick={handleToggle}></i>
             </header>
+            <ul class="nav-links">
+                {sideBar.map((item, index) => (
+                    <SidebarItem key={index} item={item} />
+                ))}
+                <li>
+                    <div class="profile-details">
+                        <div class="profile-content">
+                            <img src="image/profile.jpg" alt="profileImg" />
+                        </div>
+                        <div class="name-job">
+                            <div class="profile_name">Prem Shahi</div>
+                            <div class="job">Web Desginer</div>
+                        </div>
+                        <i class="bx bx-log-out"></i>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    );
+};
 
-            <div className="sidebar__menu-bar">
-                <div className="sidebar__menu">
-                    <ul className="menu-links">
-                        <li className="nav-link">
-                            <a href="#">
-                                <i className="bx bx-home-alt sidebar__icon"></i>
-                                <span className="sidebar__text">Dashboard</span>
-                            </a>
-                        </li>
+const SidebarItem = ({ item }) => {
+    const [isShowSub, setIsShowSub] = useState(false);
 
-                        <li className="nav-link">
-                            <a href="#">
-                                <i className="bx bx-bar-chart-alt-2 sidebar__icon"></i>
-                                <span className="sidebar__text">Revenue</span>
-                            </a>
-                        </li>
-
-                        <li className="nav-link">
-                            <a href="#">
-                                <i className="bx bx-bell sidebar__icon"></i>
-                                <span className="sidebar__text">Notifications</span>
-                            </a>
-                        </li>
-
-                        <li className="nav-link">
-                            <a href="#">
-                                <i className="bx bx-pie-chart-alt sidebar__icon"></i>
-                                <span className="sidebar__text">Analytics</span>
-                            </a>
-                        </li>
-
-                        <li className="nav-link">
-                            <a href="#">
-                                <i className="bx bx-heart sidebar__icon"></i>
-                                <span className="sidebar__text">Likes</span>
-                            </a>
-                        </li>
-
-                        <li className="nav-link">
-                            <a href="#">
-                                <i className="bx bx-wallet sidebar__icon"></i>
-                                <span className="sidebar__text">Wallets</span>
-                            </a>
-                        </li>
-                    </ul>
+    const handleShowSub = () => {
+        setIsShowSub(!isShowSub);
+    };
+    if (item.subs) {
+        return (
+            <li className={isShowSub && 'showMenu'}>
+                <div class="iocn-link" onClick={handleShowSub}>
+                    <a href="#">
+                        <i class="bx bx-plug"></i>
+                        <span class="link_name">{item.displayName}</span>
+                    </a>
+                    <i class="bx bxs-chevron-down arrow"></i>
                 </div>
-
-                <div className="bottom-content">
-                    <li className="">
-                        <a href="#">
-                            <i className="bx bx-log-out sidebar__icon"></i>
-                            <span className="sidebar__text">Logout</span>
+                <ul class="sub-menu">
+                    <li>
+                        <a class="link_name" href="#">
+                            {item.displayName}
                         </a>
                     </li>
-                </div>
-            </div>
-        </nav>
+                    {item.subs.map((sub, index) => (
+                        <li>
+                            <a key={index} href="#">
+                                {sub.displayName}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </li>
+        );
+    }
+
+    return (
+        <li>
+            <a href="#">
+                <i class="bx bx-compass"></i>
+                <span class="link_name">{item.displayName}</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li>
+                    <a class="link_name" href="#">
+                        {item.displayName}
+                    </a>
+                </li>
+            </ul>
+        </li>
     );
 };
 
