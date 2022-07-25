@@ -1,6 +1,6 @@
 .lt-tabs {
     &__nav {
-        background-color: $main-color;
+        background-color: var(--main-color);
         height: 36px;
         font-weight: 400px;
     }
@@ -30,9 +30,12 @@
         }
     }
 
+    &__content {
+        margin-top: 20px;
+    }
+
     &__pane {
         display: none;
-        padding: 2rem 1.25rem;
 
         &.visible {
             display: block;

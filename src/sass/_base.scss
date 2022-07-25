@@ -33,7 +33,7 @@ a {
 }
 
 a:hover {
-    color: $main-color;
+    color: var(--main-color);
 }
 
 img {

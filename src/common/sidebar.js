@@ -1,18 +1,18 @@
 const sideBar = [
     {
-        displayName: 'Dashboard',
+        displayName: 'Tài khoản',
         route: '/',
-        icon: 'bx bx-category-alt',
+        icon: 'bx bxs-user-circle',
     },
     {
         displayName: 'Customers',
         route: '/boards',
-        icon: 'bx bx-user-pin',
+        icon: 'bx bxs-cart',
     },
     {
-        displayName: 'Products',
+        displayName: 'Thị trường',
         route: '/boards',
-        icon: 'bx bx-package',
+        icon: 'bx bxs-chart',
         subs: [
             {
                 displayName: 'Customers',
@@ -32,9 +32,9 @@ const sideBar = [
         ],
     },
     {
-        displayName: 'Orders',
+        displayName: 'Dịch vụ',
         route: '/boards',
-        icon: 'bx bx-cart',
+        icon: 'bx bxs-bank',
     },
     {
         displayName: 'Analytics',

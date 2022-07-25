@@ -1,7 +1,8 @@
 import axios from 'axios';
+import qs from 'qs';
 
 const baseUrl = process.env.REACT_APP_API_URL;
-const getToken = () => localStorage.getItem('token');
+// const getToken = () => localStorage.getItem('token');
 
 const instance = axios.create({
     baseURL: baseUrl,
@@ -11,9 +12,11 @@ instance.interceptors.request.use(async (config) => {
     return {
         ...config,
         headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${getToken()}`,
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            // authorization: `Bearer ${getToken()}`,
         },
+        method: 'post',
+        data: qs.stringify(config.data),
     };
 });
 

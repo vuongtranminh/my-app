@@ -1,11 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AssetLoan from '~/components/asset-loan/AssetLoan';
+import AssetLoanTable from '~/components/asset-loan/AssetLoanTable';
 import Grid from '~/components/common/Grid';
 import Table, { TableBody } from '~/components/common/Table';
 import Tabs, { Tab, TabsContent, TabsNav, TabsPane } from '~/components/common/Tabs';
 import Section, { SectionBody, SectionTitle } from '~/components/Section';
 
 const Board = () => {
+    const [isLoading, setIsLoading] = useState(true);
+
+    const createData = (name, calories, fat, carbs, protein) => {
+        return { name, calories, fat, carbs, protein };
+    };
+
+    const rows = [
+        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+        createData('Eclair', 262, 16.0, 24, 6.0),
+        createData('Cupcake', 305, 3.7, 67, 4.3),
+        createData('Gingerbread', 356, 16.0, 49, 3.9),
+        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+        createData('Eclair', 262, 16.0, 24, 6.0),
+        createData('Cupcake', 305, 3.7, 67, 4.3),
+        createData('Gingerbread', 356, 16.0, 49, 3.9),
+        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+        createData('Eclair', 262, 16.0, 24, 6.0),
+        createData('Cupcake', 305, 3.7, 67, 4.3),
+        createData('Gingerbread', 356, 16.0, 49, 3.9),
+        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+        createData('Eclair', 262, 16.0, 24, 6.0),
+        createData('Cupcake', 305, 3.7, 67, 4.3),
+        createData('Gingerbread', 356, 16.0, 49, 3.9),
+        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+        createData('Eclair', 262, 16.0, 24, 6.0),
+        createData('Cupcake', 305, 3.7, 67, 4.3),
+        createData('Gingerbread', 356, 16.0, 49, 3.9),
+    ];
+
+    useEffect(() => {
+        setTimeout(() => {
+            // setIsLoading(false);
+        }, 2000);
+    }, []);
+
     return (
         <div className="asset-loan">
             <Tabs>
@@ -43,7 +84,11 @@ const Board = () => {
                                     <SectionTitle>
                                         <div className="text--head">Chi tiết nợ vay</div>
                                     </SectionTitle>
-                                    <SectionBody></SectionBody>
+                                    <SectionBody>
+                                        <div className="asset-loan__table">
+                                            <AssetLoanTable data={rows} />
+                                        </div>
+                                    </SectionBody>
                                 </Section>
                             </div>
                         </div>

@@ -3,10 +3,16 @@ import React, { createContext } from 'react';
 const SectionContext = createContext({ parent: 'TableHead' });
 
 const Table = (props) => {
-    const { children, stickyHeader = false, className, ...otherProps } = props;
+    const { children, stickyHeader, className, border, radius, ...otherProps } = props;
     return (
         <div className={`lt-table-wraper ${className}`} {...otherProps}>
-            <table className={`lt-table ${stickyHeader && 'lt-table--sticky-header'}`}>{children}</table>
+            <table
+                className={`lt-table ${stickyHeader && 'lt-table--sticky-header'} ${border && 'lt-table--border'} ${
+                    radius && 'lt-table--radius'
+                }`}
+            >
+                {children}
+            </table>
         </div>
     );
 };

@@ -11,34 +11,34 @@ const Sidebar = () => {
     };
 
     return (
-        <nav class={`sidebar ${closeNav && 'close'}`}>
+        <nav className={`sidebar ${closeNav && 'close'}`}>
             <header>
-                <div class="image-text">
-                    <span class="image">
+                <div className="image-text">
+                    <span className="image">
                         <img src={images.logoMini} alt="" />
                     </span>
 
-                    <div class="text logo-text">
+                    <div className="text logo-text">
                         <img src={images.logoCut} alt="" />
                     </div>
                 </div>
 
-                <i class={`bx bx-chevron-${closeNav ? 'right' : 'left'} toggle`} onClick={handleToggle}></i>
+                <i className={`bx bx-chevron-${closeNav ? 'right' : 'left'} toggle`} onClick={handleToggle}></i>
             </header>
-            <ul class="nav-links">
+            <ul className="nav-links">
                 {sideBar.map((item, index) => (
                     <SidebarItem key={index} item={item} />
                 ))}
                 <li>
-                    <div class="profile-details">
-                        <div class="profile-content">
+                    <div className="profile-details">
+                        <div className="profile-content">
                             <img src="image/profile.jpg" alt="profileImg" />
                         </div>
-                        <div class="name-job">
-                            <div class="profile_name">Prem Shahi</div>
-                            <div class="job">Web Desginer</div>
+                        <div className="name-job">
+                            <div className="profile_name">Prem Shahi</div>
+                            <div className="job">Web Desginer</div>
                         </div>
-                        <i class="bx bx-log-out"></i>
+                        <i className="bx bx-log-out"></i>
                     </div>
                 </li>
             </ul>
@@ -54,25 +54,23 @@ const SidebarItem = ({ item }) => {
     };
     if (item.subs) {
         return (
-            <li className={isShowSub && 'showMenu'}>
-                <div class="iocn-link" onClick={handleShowSub}>
+            <li className={`${isShowSub && 'showMenu'}`}>
+                <div className="iocn-link" onClick={handleShowSub}>
                     <a href="#">
-                        <i class="bx bx-plug"></i>
-                        <span class="link_name">{item.displayName}</span>
+                        <i className={item.icon}></i>
+                        <span className="link_name">{item.displayName}</span>
                     </a>
-                    <i class="bx bxs-chevron-down arrow"></i>
+                    <i className="bx bxs-chevron-down arrow"></i>
                 </div>
-                <ul class="sub-menu">
+                <ul className="sub-menu">
                     <li>
-                        <a class="link_name" href="#">
+                        <a className="link_name" href="#">
                             {item.displayName}
                         </a>
                     </li>
                     {item.subs.map((sub, index) => (
-                        <li>
-                            <a key={index} href="#">
-                                {sub.displayName}
-                            </a>
+                        <li key={index}>
+                            <a href="#">{sub.displayName}</a>
                         </li>
                     ))}
                 </ul>
@@ -83,12 +81,12 @@ const SidebarItem = ({ item }) => {
     return (
         <li>
             <a href="#">
-                <i class="bx bx-compass"></i>
-                <span class="link_name">{item.displayName}</span>
+                <i className={item.icon}></i>
+                <span className="link_name">{item.displayName}</span>
             </a>
-            <ul class="sub-menu blank">
+            <ul className="sub-menu blank">
                 <li>
-                    <a class="link_name" href="#">
+                    <a className="link_name" href="#">
                         {item.displayName}
                     </a>
                 </li>

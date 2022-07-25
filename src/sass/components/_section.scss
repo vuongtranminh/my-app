@@ -1,6 +1,6 @@
 .section {
     &__title {
-        background-color: $main-bg-hightlight;
+        background-color: var(--main-bg-hightlight);
         border-radius: $border-radius;
         height: 36px;
         display: flex;
@@ -9,6 +9,8 @@
     }
 
     &__body {
-        background-color: $main-color;
+        margin-top: 10px;
+        background-color: var(--main-bg-section);
+        overflow-x: hidden;
     }
 }

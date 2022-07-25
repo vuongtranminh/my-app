@@ -1,11 +1,12 @@
 .top-nav {
-    background-color: $main-color;
+    background-color: var(--main-color);
     height: 40px;
     border-radius: $border-radius;
     @include flex(space-between, center);
     padding: 0 20px;
+    width: calc(100% - 10px);
     position: sticky;
-    top: 10px;
+    top: 0;
     z-index: 99;
 
     &__time {
@@ -13,7 +14,7 @@
         display: flex;
         align-items: center;
         gap: 5px;
-        background-color: $main-bg-hightlight;
+        background-color: var(--main-bg-hightlight);
         padding: 0 5px;
         border-radius: 8px;
         height: 20px;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import Footer from '~/components/Footer';
@@ -6,10 +6,10 @@ import Sidebar from '~/components/Sidebar';
 import TopNav from '~/components/TopNav';
 
 const AppLayout = () => {
-    const themeMode = useSelector((state) => state.themeMode.themeMode);
+    const theme = useSelector((state) => state.themeMode.theme);
 
     return (
-        <div className={`layout ${themeMode}`}>
+        <div className={`layout ${theme}`}>
             <Sidebar />
             <div className="layout__content">
                 <TopNav />

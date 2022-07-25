@@ -1,14 +1,18 @@
 import React, { createRef, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import authApi from '~/api/authApi';
 import images from '~/assets/images';
-import Form from '~/components/common/Form';
+import Button from '~/components/common/Button';
 import InputLabel from '~/components/common/InputLabel';
 import Select from '~/components/common/Select';
 
 const Login = () => {
+    const { t, i18n } = useTranslation();
+
     const inputRefs = useRef([createRef(), createRef()]);
 
     const [account, setAccount] = useState({
-        username: '',
+        id: '',
         password: '',
     });
 
@@ -17,7 +21,7 @@ const Login = () => {
         value: 'otp',
     });
 
-    const usernameRules = useMemo(() => {
+    const idRules = useMemo(() => {
         return [
             (value) => !!value || 'Username is not empty!',
             (value) =>
@@ -60,6 +64,10 @@ const Login = () => {
         setLoginMethod(value);
     };
 
+    const handleSubmit = () => {
+        authApi.loginOTP(account);
+    };
+
     return (
         <div className="login">
             <div className="login__logo">
@@ -72,10 +80,10 @@ const Login = () => {
                         ref={inputRefs.current[0]}
                         type="text"
                         label="Tài khoản*"
-                        name="username"
-                        value={account.username}
+                        name="id"
+                        value={account.id}
                         onChange={handleChange}
-                        rules={usernameRules}
+                        rules={idRules}
                     />
                 </div>
                 <div className="login__input">
@@ -96,6 +104,11 @@ const Login = () => {
                         itemText="label"
                         onClickOption={handleClickOption}
                     />
+                </div>
+                <div className="login__submit">
+                    <Button variant="contained" onClick={handleSubmit}>
+                        {t('login')}
+                    </Button>
                 </div>
             </div>
         </div>

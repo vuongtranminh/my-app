@@ -46,7 +46,12 @@ const InputLabel = forwardRef((props, ref) => {
     );
 });
 
-InputLabel.propTypes = {};
+InputLabel.propTypes = {
+    label: PropTypes.string,
+    rules: PropTypes.array,
+    onChange: PropTypes.func,
+    value: PropTypes.any,
+};
 
 InputLabel.displayName = 'InputLabel';
 

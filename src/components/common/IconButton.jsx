@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const IconButton = (props) => {
+    const { full, badge, children, className, ...otherProps } = props;
     return (
-        <button className={`lt-icon-button ${props.full && 'lt-icon-button--full'}`}>
+        <button className={`lt-icon-button ${full && 'lt-icon-button--full'} ${className}`} {...otherProps}>
             <span className="lt-icon-button__wrapper">
-                <span className="lt-icon-button__icon">{props.children}</span>
-                {props.badge && <span className="lt-icon-button__badge">{props.badge}</span>}
+                <span className="lt-icon-button__icon">{children}</span>
+                {props.badge && <span className="lt-icon-button__badge">{badge}</span>}
             </span>
         </button>
     );

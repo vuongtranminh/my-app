@@ -32,7 +32,7 @@ const Dialog = (props) => {
             <div className="lt-dialog">
                 {defaultClose && (
                     <span className="lt-dialog__close" onClick={handleOpen}>
-                        <i class="bx bx-x"></i>
+                        <i className="bx bx-x"></i>
                     </span>
                 )}
                 {children}
