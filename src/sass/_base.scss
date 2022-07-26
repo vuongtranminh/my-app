@@ -42,11 +42,11 @@ img {
 
 @each $color, $val in $colors {
     .color-#{$color} {
-        color: $val;
+        color: $val !important;
     }
 
     .bg-#{$color} {
-        background-color: $val;
+        background-color: $val !important;
     }
 }
 
@@ -58,4 +58,79 @@ img {
 .text--bold {
     font-weight: 700;
     font-size: 14px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-start {
+    justify-content: flex-start !important;
+}
+
+.justify-end {
+    justify-content: flex-end !important;
+}
+
+.justify-center {
+    justify-content: center !important;
+}
+
+.justify-space-between {
+    justify-content: space-between !important;
+}
+
+.align-start {
+    align-items: flex-start !important;
+}
+
+.align-end {
+    align-items: flex-end !important;
+}
+
+.align-center {
+    align-items: center !important;
+}
+
+.w-half {
+    width: 50% !important;
+}
+
+.w-full {
+    width: 100% !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.flex-grow-1 {
+    flex-grow: 1 !important;
+}
+
+.align-self-start {
+    align-self: start !important;
+}
+
+.align-self-end {
+    align-self: end !important;
+}
+.align-self-center {
+    align-self: center !important;
+}
+
+.mt-10 {
+    margin-top: 10px !important;
+}
+
+.mb-10 {
+    margin-bottom: 10px !important;
 }

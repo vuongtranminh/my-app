@@ -16,11 +16,11 @@ const Autocomplete = (props) => {
         onChange,
         value,
         itemText,
-        itemValue,
-        returnObject,
         onData,
         onClickAutoComplete,
-        search,
+        onSearch,
+        placeholder,
+        hideClear,
     } = props;
 
     const [statusSearch, setStatusSeach] = useState(BEFORE_SEARCH);
@@ -31,15 +31,16 @@ const Autocomplete = (props) => {
     const autocompleteResultsRef = useRef(null);
     const didMount = useRef(false);
 
-    const [inputSearch, setInputSearch] = useState('');
+    // const [inputSearch, setInputSearch] = useState('');
     const [isDone, setIsDone] = useState(false);
 
-    const debouncedValue = useDebounce(inputSearch, 500);
+    const debouncedValue = useDebounce(value, 2000);
 
     const handleChange = (e) => {
         const value = e.target.value;
-        setInputSearch(value);
-        onChange(value);
+        if (!value.startsWith(' ')) {
+            onChange(value);
+        }
         // setIsDone(false);
 
         // search or data change will reset cursor and view
@@ -62,9 +63,9 @@ const Autocomplete = (props) => {
         }
     };
 
-    const showSuggestion = () => setVisiblity(true); //
+    const showSuggestion = () => setVisiblity(true);
 
-    const hideSuggestion = () => setVisiblity(false); //
+    const hideSuggestion = () => setVisiblity(false);
 
     const keyboardNavigation = (e) => {
         // get value by index when keydown
@@ -113,9 +114,9 @@ const Autocomplete = (props) => {
             // Paste code to be executed on subsequent renders:
             if (statusSearch !== SEARCHED) {
                 if (!debouncedValue.trim()) {
-                    onData([]);
+                    // onData([]);
                 } else {
-                    search(debouncedValue);
+                    onSearch();
                 }
                 setStatusSeach(SEARCHING);
             }
@@ -126,120 +127,23 @@ const Autocomplete = (props) => {
 
     const handleClickAutoComplete = (value) => {
         if (itemText) {
-            setInputSearch(value[itemText]);
             onChange(value[itemText]);
         } else {
-            setInputSearch(value);
             onChange(value);
         }
+        onClickAutoComplete(value);
         hideSuggestion();
         setStatusSeach(SEARCHED);
-        setIsDone(true);
-        const result = returnResult(value);
-        onClickAutoComplete(result);
+        // setIsDone(true);
+        // onClickAutoComplete(result);
     };
 
-    const returnResult = (value) => {
-        if (returnObject) {
-            return value;
-        } else if (itemText) {
-            if (itemValue) {
-                return value[itemValue];
-            } else {
-                return value[itemText];
-            }
-        } else {
-            return value;
-        }
-    };
-
-    const clearText = () => {
-        setInputSearch('');
+    const handleClear = () => {
         onChange('');
-        onClearText ? () => onClearText() : null;
+        onClear ? () => onClear() : null;
     };
-
-    // const Results = () => {
-    //     // inputSeach => isLoading = false
-    //     if (inputSearch) {
-    //         if (isLoading) {
-    //             return null;
-    //         } else {
-    //             if (data.length !== 0) {
-    //                 return (
-    //                     <div className="lt-autocomplete__results" ref={autocompleteResultsRef}>
-    //                         {data.map((value) => (
-    //                             <div
-    //                                 key={uuidv4()}
-    //                                 className="lt-autocomplete__results__item"
-    //                                 onClick={() => handleClickAutoComplete(value)}
-    //                             >
-    //                                 <span>
-    //                                     <i className="bx bx-search"></i>
-    //                                 </span>
-    //                                 {itemText ? <p>{value[itemText]}</p> : <p>{value}</p>}
-    //                             </div>
-    //                         ))}
-    //                     </div>
-    //                 );
-    //             } else {
-    //                 if (isDone) {
-    //                     return null;
-    //                 } else {
-    //                     return (
-    //                         <div className="lt-autocomplete__results lt-autocomplete__results--no-data">
-    //                             <p>{noDataText}</p>
-    //                         </div>
-    //                     );
-    //                 }
-    //             }
-    //         }
-    //     } else {
-    //         return null;
-    //     }
-    // };
 
     const Results = () => {
-        // inputSeach => isLoading = false
-        // if (inputSearch) {
-        //     if (isLoading) {
-        //         return null;
-        //     } else {
-        //         if (items.length !== 0) {
-        //             return (
-        //                 <div className="lt-autocomplete__results">
-        //                     <ul ref={autocompleteResultsRef}>
-        //                         {items.map((item, index) => (
-        //                             <li
-        //                                 key={uuidv4()}
-        //                                 className={`lt-autocomplete__results__item ${cursor === index && 'highlight'}`}
-        //                                 onClick={() => handleClickAutoComplete(item)}
-        //                             >
-        //                                 <span>
-        //                                     <i className="bx bx-search"></i>
-        //                                 </span>
-        //                                 {itemText ? <p>{item[itemText]}</p> : <p>{item}</p>}
-        //                             </li>
-        //                         ))}
-        //                     </ul>
-        //                 </div>
-        //             );
-        //         } else {
-        //             if (isDone) {
-        //                 return null;
-        //             } else {
-        //                 return (
-        //                     <div className="lt-autocomplete__results lt-autocomplete__results--no-data">
-        //                         <p>{noDataText}</p>
-        //                     </div>
-        //                 );
-        //             }
-        //         }
-        //     }
-        // } else {
-        //     return null;
-        // }
-
         if (statusSearch === BEFORE_SEARCH) {
             return (
                 <ul ref={autocompleteResultsRef}>
@@ -257,7 +161,7 @@ const Autocomplete = (props) => {
                         <ul ref={autocompleteResultsRef}>
                             {items.map((item, index) => (
                                 <li
-                                    key={uuidv4()}
+                                    key={index}
                                     className={`lt-autocomplete__results__item ${cursor === index && 'highlight'}`}
                                     onClick={() => handleClickAutoComplete(item)}
                                 >
@@ -289,14 +193,14 @@ const Autocomplete = (props) => {
                     <input
                         autoComplete="off"
                         type="text"
-                        placeholder="Pesquisar..."
-                        value={value ? value : inputSearch}
-                        onClick={showSuggestion}
+                        placeholder={placeholder}
+                        value={value}
                         onChange={handleChange}
                         onKeyDown={keyboardNavigation}
+                        onFocus={showSuggestion}
                     />
-                    {inputSearch && (
-                        <span className="lt-autocomplete__input__clear" onClick={clearText}>
+                    {!hideClear && !!value && !isLoading && (
+                        <span className="lt-autocomplete__input__clear" onClick={handleClear}>
                             <i className="bx bx-x"></i>
                         </span>
                     )}

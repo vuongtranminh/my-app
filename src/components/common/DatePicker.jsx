@@ -157,8 +157,9 @@ const DatePicker = (props) => {
 
     return (
         <div className="lt-date-picker">
-            <div className="lt-date-picker__input">
-                <input readOnly onClick={handleShowCalendar} value={dateFormat(datePicker)} />
+            <div className="lt-date-picker__input" onClick={handleShowCalendar}>
+                <span>{dateFormat(datePicker)}</span>
+                <i className="bx bxs-calendar"></i>
             </div>
             <div className={`lt-calendar ${isShowCalendar && 'show'}`} ref={calenderRef}>
                 <div className="lt-calendar__header">
