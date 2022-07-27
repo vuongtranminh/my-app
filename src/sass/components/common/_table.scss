@@ -31,16 +31,16 @@ $border-color: #353a55;
     &__cell {
         padding: 6px 16px;
 
-        &--start {
-            text-align: start;
+        &--left {
+            text-align: left;
         }
 
         &--center {
             text-align: center;
         }
 
-        &--end {
-            text-align: end;
+        &--right {
+            text-align: right;
         }
     }
 }

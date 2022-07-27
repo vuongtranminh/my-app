@@ -2,7 +2,9 @@ import React, { createRef, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import authApi from '~/api/authApi';
 import images from '~/assets/images';
+import { languages } from '~/common/languages';
 import Button from '~/components/common/Button';
+import CheckBox from '~/components/common/CheckBox';
 import InputLabel from '~/components/common/InputLabel';
 import Select from '~/components/common/Select';
 
@@ -99,16 +101,29 @@ const Login = () => {
                 </div>
                 <div className="login__method">
                     <Select
+                        label="Phương thức xác thực"
                         items={loginMethods}
                         value={loginMethod}
                         itemText="label"
                         onClickOption={handleClickOption}
                     />
                 </div>
+                <div className="login__checkbox">
+                    <CheckBox label="Lưu ID" />
+                </div>
+                <div className="login__checkbox">
+                    <CheckBox label="Cert đăng nhập" />
+                </div>
                 <div className="login__submit">
-                    <Button variant="contained" onClick={handleSubmit}>
+                    <Button variant="contained" size="large" onClick={handleSubmit}>
                         {t('login')}
                     </Button>
+                </div>
+                <div className="login__link-register">
+                    <a href="https://nhwts.nhsv.vn/mo-tai-khoan/">Đăng ký mở tài khoản</a>
+                </div>
+                <div className="login__languages">
+                    <Select items={languages} value={loginMethod} itemText="label" onClickOption={handleClickOption} />
                 </div>
             </div>
         </div>

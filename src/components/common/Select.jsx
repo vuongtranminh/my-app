@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Select = (props) => {
-    const { items, itemText, value, onClickOption } = props;
+    const { items, itemText, value, onClickOption, noBorder, label } = props;
     const [isShowOption, setIsShowOption] = useState(false);
 
     const handleShowOption = () => {
@@ -14,23 +14,49 @@ const Select = (props) => {
         onClickOption(value);
     };
 
+    const isValueChoose = (item) => {
+        if (item === value) {
+            return true;
+        }
+    };
+
     return (
         <div className="select-box">
-            <div className={`options-container ${isShowOption && 'active'}`}>
+            <div className={`options-container ${isShowOption && 'active'} ${label && 'options-container--label'}`}>
                 {items.map((item, index) => (
-                    <div key={index} className="option" onClick={() => handleClickOption(item)}>
+                    <div
+                        key={index}
+                        className={`option ${isValueChoose(item) && 'active'}`}
+                        onClick={() => handleClickOption(item)}
+                    >
+                        {item.icon && <img src={item.icon} />}
                         <label>{itemText ? item[itemText] : item}</label>
                     </div>
                 ))}
             </div>
 
-            <div className="selected" onClick={handleShowOption}>
-                {value.icon && (
-                    <span className="lt-select__selected__icon">
-                        <img src={value.icon} />
-                    </span>
+            <div className="selected">
+                {label && (
+                    <label className="selected__label" onClick={handleShowOption}>
+                        {label}
+                    </label>
                 )}
-                {itemText ? value[itemText] : value}
+                <div
+                    className={`selected__value ${noBorder && 'selected__value--no-border'}`}
+                    onClick={handleShowOption}
+                >
+                    <span>
+                        {value.icon && (
+                            <span className="lt-select__selected__icon">
+                                <img src={value.icon} />
+                            </span>
+                        )}
+                        {itemText ? value[itemText] : value}
+                    </span>
+                    <span className="lt-select__selected arraw">
+                        <i class={`bx bxs-${isShowOption ? 'up' : 'down'}-arrow`}></i>
+                    </span>
+                </div>
             </div>
         </div>
     );

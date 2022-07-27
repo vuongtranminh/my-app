@@ -1,0 +1,41 @@
+.lt-checkbox {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    cursor: pointer;
+
+    &:hover {
+        color: #4267b2;
+    }
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    &__checkmark {
+        margin-right: 10px;
+        height: 15px;
+        width: 15px;
+        border: 1px solid #8d8d8d;
+
+        i {
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+    }
+
+    input:checked ~ &__checkmark {
+        background-color: #4267b2;
+        border: 1px solid #4267b2;
+        color: #fff;
+    }
+
+    input:checked ~ &__checkmark > i {
+        transform: scale(1);
+    }
+}
