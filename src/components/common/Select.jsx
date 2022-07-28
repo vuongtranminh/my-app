@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { isDeepEqual } from '~/utils';
 
 const Select = (props) => {
     const { items, itemText, value, onClickOption, noBorder, label } = props;
@@ -15,45 +16,45 @@ const Select = (props) => {
     };
 
     const isValueChoose = (item) => {
-        if (item === value) {
-            return true;
-        }
+        return isDeepEqual(item, value);
     };
 
     return (
-        <div className="select-box">
-            <div className={`options-container ${isShowOption && 'active'} ${label && 'options-container--label'}`}>
+        <div className="lt-select-box">
+            <div
+                className={`lt-options-container ${isShowOption && 'active'} ${label && 'lt-options-container--label'}`}
+            >
                 {items.map((item, index) => (
                     <div
                         key={index}
-                        className={`option ${isValueChoose(item) && 'active'}`}
+                        className={`lt-option ${isValueChoose(item) && 'active'}`}
                         onClick={() => handleClickOption(item)}
                     >
-                        {item.icon && <img src={item.icon} />}
-                        <label>{itemText ? item[itemText] : item}</label>
+                        <span className="lt-option__icon">{item.icon && <img src={item.icon} />}</span>
+                        <label className="lt-option__title">{itemText ? item[itemText] : item}</label>
                     </div>
                 ))}
             </div>
 
-            <div className="selected">
+            <div className="lt-selected">
                 {label && (
-                    <label className="selected__label" onClick={handleShowOption}>
+                    <label className="lt-selected__label" onClick={handleShowOption}>
                         {label}
                     </label>
                 )}
                 <div
-                    className={`selected__value ${noBorder && 'selected__value--no-border'}`}
+                    className={`lt-selected__wrapper ${noBorder && 'lt-selected__wrapper--no-border'}`}
                     onClick={handleShowOption}
                 >
-                    <span>
+                    <span className="lt-selected__value">
                         {value.icon && (
-                            <span className="lt-select__selected__icon">
+                            <span className="lt-selected__icon">
                                 <img src={value.icon} />
                             </span>
                         )}
-                        {itemText ? value[itemText] : value}
+                        <span className="lt-selected__title">{itemText ? value[itemText] : value}</span>
                     </span>
-                    <span className="lt-select__selected arraw">
+                    <span className="lt-selected__arraw">
                         <i class={`bx bxs-${isShowOption ? 'up' : 'down'}-arrow`}></i>
                     </span>
                 </div>

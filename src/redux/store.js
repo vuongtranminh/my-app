@@ -1,10 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import themeSlice from './features/themeSlice';
+import userSlice from './features/userSlice';
 
 import rootSaga from './saga';
-
-import twoSlice from './two-slide';
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
@@ -16,7 +15,7 @@ const middleware = (getDefaultMiddleware) => getDefaultMiddleware({ thunk: false
 const store = configureStore({
     reducer: {
         themeMode: themeSlice,
-        twoItems: twoSlice,
+        user: userSlice,
     },
     middleware,
 });

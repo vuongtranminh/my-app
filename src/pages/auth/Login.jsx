@@ -1,5 +1,6 @@
 import React, { createRef, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import authApi from '~/api/authApi';
 import images from '~/assets/images';
 import { languages } from '~/common/languages';
@@ -7,9 +8,14 @@ import Button from '~/components/common/Button';
 import CheckBox from '~/components/common/CheckBox';
 import InputLabel from '~/components/common/InputLabel';
 import Select from '~/components/common/Select';
+import { setLanguage } from '~/redux/features/userSlice';
 
 const Login = () => {
     const { t, i18n } = useTranslation();
+
+    const languageStore = useSelector((state) => state.user.language);
+
+    const dispatch = useDispatch();
 
     const inputRefs = useRef([createRef(), createRef()]);
 
@@ -22,6 +28,10 @@ const Login = () => {
         label: 'OTP',
         value: 'otp',
     });
+
+    const [languageState, setLanguageState] = useState(() =>
+        languages.find((language) => language.value === languageStore),
+    );
 
     const idRules = useMemo(() => {
         return [
@@ -62,12 +72,18 @@ const Login = () => {
         });
     };
 
-    const handleClickOption = (value) => {
-        setLoginMethod(value);
+    const handleChangeMethod = (method) => {
+        setLoginMethod(method);
     };
 
     const handleSubmit = () => {
         authApi.loginOTP(account);
+    };
+
+    const handleChangeLanguage = (language) => {
+        dispatch(setLanguage(language.value));
+        setLanguageState(language);
+        i18n.changeLanguage(language.value);
     };
 
     return (
@@ -105,7 +121,7 @@ const Login = () => {
                         items={loginMethods}
                         value={loginMethod}
                         itemText="label"
-                        onClickOption={handleClickOption}
+                        onClickOption={handleChangeMethod}
                     />
                 </div>
                 <div className="login__checkbox">
@@ -123,7 +139,12 @@ const Login = () => {
                     <a href="https://nhwts.nhsv.vn/mo-tai-khoan/">Đăng ký mở tài khoản</a>
                 </div>
                 <div className="login__languages">
-                    <Select items={languages} value={loginMethod} itemText="label" onClickOption={handleClickOption} />
+                    <Select
+                        items={languages}
+                        value={languageState}
+                        itemText="label"
+                        onClickOption={handleChangeLanguage}
+                    />
                 </div>
             </div>
         </div>

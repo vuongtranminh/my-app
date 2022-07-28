@@ -16,4 +16,4 @@ export const languages = [
         icon: images.ko,
         value: 'ko',
     },
-]
+];
