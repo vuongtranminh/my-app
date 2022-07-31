@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 const CheckBox = (props) => {
-    const inputRef = React.useRef(null);
+    const { t, i18n } = useTranslation();
+
+    const inputRef = useRef(null);
 
     const onChange = () => {
         if (props.onChange) {
@@ -16,7 +19,7 @@ const CheckBox = (props) => {
             <span className="lt-checkbox__checkmark">
                 <i className="bx bx-check"></i>
             </span>
-            {props.label}
+            {t(props.label)}
         </label>
     );
 };

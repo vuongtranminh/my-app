@@ -45,6 +45,6 @@ const isDeepEqual = (obj1, obj2) => {
     }
 
     return true;
-}
+};
 
 export { typeOf, isString, isObject, isEmptyObject, everyValueObjectIsEmpty, isDeepEqual };

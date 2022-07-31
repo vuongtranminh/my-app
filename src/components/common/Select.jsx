@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { isDeepEqual } from '~/utils';
+import { useTranslation } from 'react-i18next';
 
 const Select = (props) => {
+    const { t, i18n } = useTranslation();
+
     const { items, itemText, value, onClickOption, noBorder, label } = props;
     const [isShowOption, setIsShowOption] = useState(false);
 
@@ -39,7 +42,7 @@ const Select = (props) => {
             <div className="lt-selected">
                 {label && (
                     <label className="lt-selected__label" onClick={handleShowOption}>
-                        {label}
+                        {t(label)}
                     </label>
                 )}
                 <div
@@ -55,7 +58,7 @@ const Select = (props) => {
                         <span className="lt-selected__title">{itemText ? value[itemText] : value}</span>
                     </span>
                     <span className="lt-selected__arraw">
-                        <i class={`bx bxs-${isShowOption ? 'up' : 'down'}-arrow`}></i>
+                        <i className={`bx bxs-${isShowOption ? 'up' : 'down'}-arrow`}></i>
                     </span>
                 </div>
             </div>

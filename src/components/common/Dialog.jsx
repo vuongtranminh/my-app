@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 const Dialog = (props) => {
-    const { open, onOpen, children, defaultClose = false, backdropClose = false } = props;
+    const { open, children, defaultClose = false, backdropClose = false } = props;
 
     const overlayRef = useRef(null);
 
@@ -12,7 +12,7 @@ const Dialog = (props) => {
                 'click',
                 (e) => {
                     if (e.target.matches('.lt-overlay') && !e.target.closest('.lt-dialog')) {
-                        onOpen(false);
+                        onClose();
                     }
                 },
                 false,
@@ -23,15 +23,15 @@ const Dialog = (props) => {
         };
     }, []);
 
-    const handleOpen = () => {
-        onOpen(false);
+    const handleClose = () => {
+        onClose();
     };
 
     return (
         <div className={`lt-overlay ${open && 'active'}`} ref={overlayRef}>
             <div className="lt-dialog">
                 {defaultClose && (
-                    <span className="lt-dialog__close" onClick={handleOpen}>
+                    <span className="lt-dialog__close" onClick={handleClose}>
                         <i className="bx bx-x"></i>
                     </span>
                 )}

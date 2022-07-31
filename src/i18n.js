@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import translationEN from '~/assets/locales/en/translation';
 import translationVI from '~/assets/locales/vi/translation';
+import { localStorageKey } from './common/AppConstants';
 
 const resources = {
     en: {
@@ -14,6 +15,7 @@ const resources = {
 
 i18n.use(initReactI18next).init({
     resources,
+    lng: JSON.parse(localStorage.getItem(localStorageKey.LANGUAGE)) || 'vi',
     fallbackLng: 'vi',
     debug: true,
 

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { localStorageKey } from '~/common/AppConstants';
 
-const theme = localStorage.getItem('theme') !== null ? JSON.parse(localStorage.getItem('theme')) : 'theme-mode-dark';
+const theme = localStorage.getItem(localStorageKey.THEME) !== null ? JSON.parse(localStorage.getItem(localStorageKey.THEME)) : 'theme-mode-dark';
 
 const initialState = {
     theme,
@@ -13,7 +14,7 @@ export const themeSlice = createSlice({
         setMode: (state, action) => {
             const theme = action.payload;
             state.theme = theme;
-            localStorage.setItem('themeMode', JSON.stringify(state.theme));
+            localStorage.setItem(localStorageKey.THEME, JSON.stringify(state.theme));
         },
     },
 });
