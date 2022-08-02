@@ -11,6 +11,7 @@ import Button from '~/components/common/Button';
 import CheckBox from '~/components/common/CheckBox';
 import InputLabel from '~/components/common/InputLabel';
 import Select from '~/components/common/Select';
+import DialogOTP from '~/components/DialogOTP';
 import { openDialog } from '~/redux/features/dialogRootSlice';
 import { setLanguage, setRememberID } from '~/redux/features/userSlice';
 
@@ -51,6 +52,10 @@ const Login = () => {
     }, []);
 
     const [loading, setLoading] = useState(false);
+
+    const [openDialogOTP, setOpenDialogOTP] = useState(false);
+
+    const [userInfoData, setUserInfoData] = useState({});
 
     const handleChangeLanguage = (language) => {
         dispatch(setLanguage(language.value));
@@ -96,6 +101,8 @@ const Login = () => {
                         }),
                     );
                 } else {
+                    setUserInfoData(res);
+                    setOpenDialogOTP(true);
                 }
             }
         });
@@ -106,6 +113,10 @@ const Login = () => {
     const handleRememberID = (rememberCheckBox) => {
         dispatch(setRememberID(rememberCheckBox.checked));
         setRememberIDState(rememberCheckBox.checked);
+    };
+
+    const handleCloseDialogOTP = () => {
+        setOpenDialogOTP(false);
     };
 
     return (
@@ -172,6 +183,8 @@ const Login = () => {
             <div className="login__forgot-password">
                 <Link to="/auth/reset-password">Quên mật khẩu</Link>
             </div>
+
+            <DialogOTP open={openDialogOTP} onClose={handleCloseDialogOTP} secucardKey={userInfoData.secucardKey} />
         </div>
     );
 };
