@@ -26,8 +26,8 @@ const Sidebar = () => {
                 <i className={`bx bx-chevron-${closeNav ? 'right' : 'left'} toggle`} onClick={handleToggle}></i>
             </header>
             <ul className="nav-links">
-                {sideBar.map((item, index) => (
-                    <SidebarItem key={index} item={item} />
+                {sideBar.map((item) => (
+                    <SidebarItem key={item.id} item={item} />
                 ))}
                 <li>
                     <div className="profile-details">

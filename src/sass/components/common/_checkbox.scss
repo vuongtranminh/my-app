@@ -18,21 +18,23 @@
     }
 
     &__checkmark {
+        border-radius: 6px;
         margin-right: 10px;
-        height: 15px;
-        width: 15px;
-        border: 1px solid #8d8d8d;
+        height: 20px;
+        width: 20px;
+        border: 1px solid var(--main-bg-hightlight);
 
         i {
+            font-size: 2rem;
             transform: scale(0);
             transition: transform 0.3s ease;
         }
     }
 
     input:checked ~ &__checkmark {
-        background-color: #4267b2;
-        border: 1px solid #4267b2;
-        color: #fff;
+        background-color: var(--main-bg-hightlight);
+        border: 1px solid var(--main-bg-hightlight);
+        color: var(--txt-color);
     }
 
     input:checked ~ &__checkmark > i {

@@ -9,7 +9,9 @@ import { languages } from '~/common/languages';
 import { loginMethods } from '~/common/loginMethods';
 import Button from '~/components/common/Button';
 import CheckBox from '~/components/common/CheckBox';
+import IconButton from '~/components/common/IconButton';
 import InputLabel from '~/components/common/InputLabel';
+import RadioGroup from '~/components/common/RadioGroup';
 import Select from '~/components/common/Select';
 import DialogOTP from '~/components/DialogOTP';
 import { openDialog } from '~/redux/features/dialogRootSlice';
@@ -33,9 +35,7 @@ const Login = () => {
         password: '',
     });
 
-    const [loginMethod, setLoginMethod] = useState(() =>
-        loginMethods.find((loginMethod) => loginMethod.value === loginMethodStore),
-    );
+    const [loginMethod, setLoginMethod] = useState(loginMethodStore);
 
     const [languageState, setLanguageState] = useState(() =>
         languages.find((language) => language.value === languageStore),
@@ -71,14 +71,15 @@ const Login = () => {
         });
     };
 
-    const handleChangeMethod = (method) => {
+    const handleChangeLoginMethod = (e) => {
+        const method = e.target.value;
         setLoginMethod(method);
     };
 
     const handleSubmit = () => {
-        if (loginMethod.value === 'otp') {
+        if (loginMethod === 'otp') {
             loginOTP();
-        } else if (loginMethod.value === 'sotp') {
+        } else if (loginMethod === 'sotp') {
             loginSOTP();
         }
         authApi.loginOTP({
@@ -121,67 +122,97 @@ const Login = () => {
 
     return (
         <div className="login">
-            <div className="login__logo">
-                <img src={images.logo} />
-            </div>
             <div className="login__form">
-                <div className="login__title">{t('Login')}</div>
-                <div className="login__input">
-                    <InputLabel
-                        ref={inputRefs.current[0]}
-                        type="text"
-                        label="account"
-                        name="id"
-                        value={account.id}
-                        onChange={handleChange}
-                        rules={idRules}
-                    />
-                </div>
-                <div className="login__input">
-                    <InputLabel
-                        ref={inputRefs.current[1]}
-                        type="password"
-                        label="password"
-                        name="password"
-                        value={account.password}
-                        onChange={handleChange}
-                        rules={passwordRules}
-                    />
-                </div>
-                <div className="login__method">
-                    <Select
-                        label="otpMethod"
-                        items={loginMethods}
-                        value={loginMethod}
-                        itemText="label"
-                        onClickOption={handleChangeMethod}
-                    />
-                </div>
-                <div className="login__checkbox">
-                    <CheckBox checked={rememberIDState} label="SaveId" onChange={handleRememberID} />
-                </div>
-                <div className="login__checkbox">
-                    <CheckBox label="CertLogin" />
-                </div>
-                <div className="login__submit">
-                    <Button variant="contained" size="large" onClick={handleSubmit}>
-                        {t('Login')}
-                    </Button>
-                </div>
-                <div className="login__link-register">
-                    <a href="https://nhwts.nhsv.vn/mo-tai-khoan/">{t('registerAccount')}</a>
-                </div>
-                <div className="login__languages">
-                    <Select
-                        items={languages}
-                        value={languageState}
-                        itemText="label"
-                        onClickOption={handleChangeLanguage}
-                    />
+                <div className="login__form-group">
+                    <div className="login__title">{t('Login')}</div>
+                    <div className="login__input">
+                        <InputLabel
+                            ref={inputRefs.current[0]}
+                            type="text"
+                            label="account"
+                            name="id"
+                            value={account.id}
+                            onChange={handleChange}
+                            rules={idRules}
+                        />
+                    </div>
+                    <div className="login__input">
+                        <InputLabel
+                            ref={inputRefs.current[1]}
+                            type="password"
+                            label="password"
+                            name="password"
+                            value={account.password}
+                            onChange={handleChange}
+                            rules={passwordRules}
+                        />
+                    </div>
+                    <div className="login__method">
+                        <div className="login__method__title">{t('Xác thực')}</div>
+                        <div className="login__method__radio-group">
+                            <RadioGroup
+                                className="radio-group"
+                                items={loginMethods}
+                                value={loginMethod}
+                                onChange={handleChangeLoginMethod}
+                            />
+                        </div>
+                    </div>
+                    <div className="login__checkbox">
+                        <CheckBox checked={rememberIDState} label="SaveId" onChange={handleRememberID} />
+                    </div>
+                    <div className="login__checkbox">
+                        <CheckBox label="CertLogin" />
+                    </div>
+                    <div className="login__submit">
+                        <Button variant="contained" size="full" onClick={handleSubmit}>
+                            {t('Login')}
+                        </Button>
+                    </div>
+                    <div className="login__link-register">
+                        <a href="https://nhwts.nhsv.vn/mo-tai-khoan/">{t('registerAccount')}</a>
+                    </div>
+                    <div className="login__languages">
+                        {/* <Select
+                            items={languages}
+                            value={languageState}
+                            itemText="label"
+                            onClickOption={handleChangeLanguage}
+                        /> */}
+                        {languages.map((item) => (
+                            <IconButton key={item.id}>
+                                <img src={item.icon} />
+                            </IconButton>
+                        ))}
+                    </div>
+                    <div className="login__forgot-password">
+                        <Link to="/auth/reset-password">Quên mật khẩu</Link>
+                    </div>
                 </div>
             </div>
-            <div className="login__forgot-password">
-                <Link to="/auth/reset-password">Quên mật khẩu</Link>
+
+            <div className="login__company">
+                <div className="login__company__logo">
+                    <img src={images.logo} />
+                </div>
+                <div className="login__company__info-group">
+                    <div className="login__company__info">
+                        <i className="bx bxs-map"></i>
+                        <p>Tầng 9, tháp Đông, Lotte Center Hà Nội, 54 Liễu Giai, Cống Vị, Ba Đình, Hà Nội</p>
+                    </div>
+                    <div className="login__company__info">
+                        <i className="bx bxs-phone"></i>
+                        <p>Hotline: 1900.1055</p>
+                    </div>
+                    <div className="login__company__info">
+                        <i className="bx bxs-guitar-amp"></i>
+                        <p>Fax: 0243.941.0248</p>
+                    </div>
+                    <div className="login__company__info">
+                        <i className="bx bxs-envelope"></i>
+                        <p>Email: support@nhsv.vn</p>
+                    </div>
+                </div>
             </div>
 
             <DialogOTP open={openDialogOTP} onClose={handleCloseDialogOTP} secucardKey={userInfoData.secucardKey} />

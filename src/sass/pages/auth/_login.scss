@@ -1,44 +1,52 @@
 .login {
-    background-color: rgba($color: $warning, $alpha: 0.7);
-    border-radius: 20px;
-    padding: 20px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-
-    &__logo {
-        width: 250px;
-
-        img {
-            width: 100%;
-        }
-    }
+    width: 100%;
+    font-size: 1.4rem;
 
     &__form {
-        width: 300px;
-        padding: 20px;
-        border-radius: 20px;
-        background-color: white;
+        width: 50%;
+        flex-grow: 1;
         display: flex;
-        flex-direction: column;
         align-items: center;
+        justify-content: center;
+    }
+
+    &__form-group {
+        background-color: var(--main-color);
+        border-radius: 16px;
+        padding: 30px 20px 15px 20px;
     }
 
     &__title {
         text-transform: uppercase;
-        font-size: 16px;
+        font-size: 2.6rem;
         font-weight: 700;
-        color: #00377b;
+        color: var(--txt-title-color);
         text-align: center;
+        margin-bottom: 30px;
     }
 
     &__input {
-        width: 100%;
+        width: 330px;
     }
 
     &__method {
         width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+
+        &__title {
+            font-size: 1.4rem;
+        }
+
+        &__radio-group {
+            .radio-group {
+                display: flex;
+                align-items: center;
+            }
+        }
     }
 
     &__checkbox {
@@ -47,28 +55,43 @@
     }
 
     &__submit {
-        display: flex;
-        justify-content: center;
+        height: 36px;
+        margin-top: 30px;
         margin-bottom: 16px;
     }
 
     &__link-register {
+        font-style: italic;
         display: flex;
         justify-content: center;
-        margin-bottom: 16px;
+        margin-bottom: 30px;
 
         a {
             text-decoration: underline;
-            color: #1eb980;
+            color: var(--txt-color-hightlight-second);
         }
     }
 
     &__languages {
-        width: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
     }
 
     &__forgot-password {
-        font-size: 14px;
-        color: #fff;
+        text-align: center;
+        text-decoration: underline;
+        color: var(--txt-color-hightlight-second);
+    }
+
+    &__company {
+        flex-grow: 1;
+        width: 50%;
+
+        &__logo {
+            width: 668px;
+        }
     }
 }

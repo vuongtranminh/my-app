@@ -1,12 +1,23 @@
-import React, { useEffect, useRef } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-const OTPInput = ({ autoSubmit = false, onSubmit }) => {
+const OTPInput = forwardRef((props, ref) => {
+    const { autoSubmit, onSubmit, autoFocus } = props;
     const otpRef = useRef(null);
     const oneRef = useRef(null);
     const twoRef = useRef(null);
     const threeRef = useRef(null);
     const fourRef = useRef(null);
+
+    const handleAutoFocus = () => {
+        oneRef.current.focus();
+    };
+
+    useEffect(() => {
+        if (autoFocus) {
+            handleAutoFocus();
+        }
+    });
 
     useEffect(() => {
         const listInputs = otpRef.current.querySelectorAll('input');
@@ -89,7 +100,7 @@ const OTPInput = ({ autoSubmit = false, onSubmit }) => {
             />
         </div>
     );
-};
+});
 
 OTPInput.propTypes = {
     autoSubmit: PropTypes.bool,

@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useContext } from 'react';
 
 const SectionContext = createContext({ parent: 'TableHead' });
 
@@ -40,7 +40,7 @@ export const TableRow = (props) => {
 
 export const TableCell = (props) => {
     const { children, align = 'start', component, className, ...otherProps } = props;
-    const { parent } = React.useContext(SectionContext);
+    const { parent } = useContext(SectionContext);
     const Component = component ? component : parent === 'TableHead' ? 'th' : 'td';
     return (
         <Component className={`lt-table__cell lt-table__cell--${align} ${className}`} {...otherProps}>

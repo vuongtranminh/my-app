@@ -34,8 +34,13 @@ const InputLabel = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => {
         return {
             validate: () => validate(),
+            forcus: () => handleForcus(),
         };
     });
+
+    const handleForcus = () => {
+        ref.current.forcus();
+    };
 
     const handleBlur = () => {
         validate();

@@ -13,8 +13,9 @@ const DialogOTP = (props) => {
     const handleClose = () => {
         onClose();
     };
+
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open}>
             <div className="dialog-otp">
                 <DialogTitle>
                     <div className="dialog-otp__title">{t('otpValidate')}</div>
@@ -25,19 +26,19 @@ const DialogOTP = (props) => {
                             {t('otpMessage')} <span>{secucardKey}</span>
                         </div>
                         <div className="dialog-otp__content__input">
-                            <OTPInput />
+                            <OTPInput autoFocus />
                         </div>
                     </div>
                 </DialogContent>
                 <DialogActions>
                     <div className="dialog-otp__actions">
                         <div className="dialog-otp__actions__button">
-                            <Button variant="contained" size="medium">
+                            <Button variant="contained" size="full" onClick={handleClose}>
                                 {t('cancel')}
                             </Button>
                         </div>
                         <div className="dialog-otp__actions__button">
-                            <Button variant="contained" size="medium">
+                            <Button variant="contained" size="full">
                                 {t('confirm')}
                             </Button>
                         </div>
