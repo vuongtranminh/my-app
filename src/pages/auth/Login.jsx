@@ -1,5 +1,5 @@
 import React, { createRef, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import authApi from '~/api/authApi';
@@ -37,9 +37,7 @@ const Login = () => {
 
     const [loginMethod, setLoginMethod] = useState(loginMethodStore);
 
-    const [languageState, setLanguageState] = useState(() =>
-        languages.find((language) => language.value === languageStore),
-    );
+    const [languageState, setLanguageState] = useState(() => languages.find((language) => language === languageStore));
 
     const [rememberIDState, setRememberIDState] = useState(rememberIDStore);
 
@@ -58,9 +56,9 @@ const Login = () => {
     const [userInfoData, setUserInfoData] = useState({});
 
     const handleChangeLanguage = (language) => {
-        dispatch(setLanguage(language.value));
+        dispatch(setLanguage(language));
         setLanguageState(language);
-        i18n.changeLanguage(language.value);
+        i18n.changeLanguage(language);
     };
 
     const handleChange = (e) => {
@@ -105,8 +103,28 @@ const Login = () => {
                     setUserInfoData(res);
                     setOpenDialogOTP(true);
                 }
+            } else {
+                handleLoginFail(res);
             }
         });
+    };
+
+    const handleLoginFail = (data) => {
+        let content = '';
+        if (data.nError >= data.nMaxError) {
+            content = t('MaxCountWrongPw');
+        } else if (data.nError) {
+            content = <Trans i18nKey="WrongPw" param1={data.nError} />;
+        } else {
+            content = data.message;
+        }
+
+        dispatch(
+            openDialog({
+                title: t('Error'),
+                content: content,
+            }),
+        );
     };
 
     const loginSOTP = () => {};
@@ -180,7 +198,7 @@ const Login = () => {
                             onClickOption={handleChangeLanguage}
                         /> */}
                         {languages.map((item) => (
-                            <IconButton key={item.id}>
+                            <IconButton key={item.id} onClick={() => handleChangeLanguage(item.value)}>
                                 <img src={item.icon} />
                             </IconButton>
                         ))}

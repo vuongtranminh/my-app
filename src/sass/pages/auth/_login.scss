@@ -92,6 +92,22 @@
 
         &__logo {
             width: 668px;
+            margin-bottom: 45px;
+        }
+
+        &__info {
+            display: flex;
+            align-items: center;
+            height: 45px;
+
+            i {
+                font-size: 2rem;
+                margin-right: 10px;
+            }
+
+            p {
+                font-size: 1.6rem;
+            }
         }
     }
 }
